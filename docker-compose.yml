@@ -1,0 +1,24 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    env_file:
+      - ".dev.env"
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin4:
+    image: elestio/pgadmin:latest
+    restart: always
+    env_file:
+      - ".dev.env"
+    ports:
+      - "${PGADMIN_PORT}:${PGADMIN_PORT}"
+
+networks:
+  default:
+    external:
+      name: platzi-market-network
